@@ -9,3 +9,16 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Empresa {
+
+  razaoSocial String @db.VarChar(50)
+  cnpj String @db.VarChar(14) @id
+  cep String @db.VarChar(8) 
+  cidade String @db.VarChar(30)
+  estado String @db.VarChar(20)
+  bairro String @db.VarChar(20)
+  complemento String @db.VarChar(10)
+
+}
+
