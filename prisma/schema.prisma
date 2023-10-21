@@ -1,28 +1,39 @@
+
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url      = env("mysql://root:root@localhost:3306/ambisis-desafio")
 }
 
 model Empresa {
-  razaoSocial String   @db.VarChar(50)
-  cnpj        String   @id @db.VarChar(14)
-  cep         String   @db.VarChar(8)
-  cidade      String   @db.VarChar(30)
-  estado      String   @db.VarChar(20)
-  bairro      String   @db.VarChar(20)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id Int @id @default(autoincrement())
+  razaoSocial String @db.VarChar(50)
+  cnpj String @db.VarChar(14) 
+  cep String @db.VarChar(8)
+  cidade String @db.VarChar(30)
+  estado String @db.VarChar(20)
+  bairro String @db.VarChar(20)
+  licencas Licenca[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+
+
 }
 
 model Licenca {
-  numero         String   @id @db.VarChar(20)
-  orgaoAmbiental String   @db.VarChar(30)
-  emissao        DateTime @db.Date()
-  validade       DateTime @db.Date()
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id Int @id @default(autoincrement()) 
+  numero String @db.VarChar(10) 
+  orgaoAmbiental String @db.VarChar(30)
+  emissao DateTime @db.Date()  
+  validade DateTime @db.Date()
+  empresa Empresa @relation(fields: [empresaId], references: [id])
+  empresaId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
 }
+
