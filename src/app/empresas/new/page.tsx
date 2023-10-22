@@ -32,7 +32,7 @@ export default function Home() {
 
               try {
                 await axios.post('/API/routes/empresasRoute', data);
-                router.push('/empresas');         
+                router.push('/');         
               } catch (error) {
                 setError('Ocorreu um erro inesperado.')
               }   

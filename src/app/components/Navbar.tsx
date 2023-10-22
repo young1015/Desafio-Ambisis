@@ -4,12 +4,13 @@ import { BsFillBuildingFill } from 'react-icons/bs';
 
 const Navbar = () => {
     return (
-        <nav className="flex space-x-5 border-b mb-5 px-5 items-center h-14">
-            <Link href="/"><BsFillBuildingFill/></Link>
-            <ul className="flex space-x-5 ">
-                <li><Link className="text-zinc-500 hover:text-slate-800 transition-colors text-lg" href="empresas/new">Cadastrar Empresa</Link></li>
-                <li><Link className="text-zinc-500 hover:text-slate-800 transition-colors text-lg" href="licenca/new">Licenças</Link></li>
-            </ul>   
+        <nav className="w-full flex space-x-5 border-b mb-5 px-5 items-center h-14">
+        
+                <Link href="/"><BsFillBuildingFill/></Link>
+                <ul className="flex space-x-5 ">
+                    <li><Link className="text-zinc-500 hover:text-slate-800 transition-colors text-lg" href="empresas/new">Cadastrar Empresa</Link></li>
+                </ul>  
+             
         </nav>
     )
 
