@@ -14,3 +14,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(novaEmpresa, { status: 201});
 }
+
+export async function DELETE(request: NextResponse) {
+    const body =  await request.json();
+}

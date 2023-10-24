@@ -9,3 +9,5 @@ export const criarEmpresaSchema = z.object({
     estado: z.string().min(5).max(20),
     bairro: z.string().min(4).max(20)
 });
+
+
