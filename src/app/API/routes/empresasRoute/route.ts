@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json(validacao.error.format(), { status: 400})
 
     const novaEmpresa = await prisma.empresa.create({
-        data: { razaoSocial: body.razaoSocial, cnpj: body.cnpj, cep: body.cep, cidade: body.cidade, estado: body.estado, bairro: body.bairro }
+        data: { razaoSocial: body.razaoSocial, cnpj: body.cnpj, cep: body.cep, cidade: body.cidade, estado: body.estado, bairro: body.bairro, licencas: body.licencas }
     })
 
     return NextResponse.json(novaEmpresa, { status: 201});
