@@ -12,7 +12,7 @@ import ErrorMessage from "@/app/components/ErrorMessage"
 
  type EmpresaForm = z.infer<typeof criarEmpresaSchema>;
  
-export default function Home() {
+export default function criarEmpresa() {
   const router = useRouter();
   const { register, control, handleSubmit, formState: { errors } } =  useForm<EmpresaForm>({
     resolver: zodResolver(criarEmpresaSchema)
@@ -28,7 +28,7 @@ export default function Home() {
         <main>
         <h1 className="text-4xl text-center">Cadastrar Empresa</h1>
           <div className=" h-screen bg-zinc-50 flex items-center justify-center">
-            <form className="flex flex-col gap-4 w-full max-w-xs" onSubmit={handleSubmit(async (data) => {
+            <form className="flex flex-col gap-2 w-full max-w-xs" onSubmit={handleSubmit(async (data) => {
 
               try {
                 await axios.post('/API/routes/empresasRoute', data);

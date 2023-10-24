@@ -1,4 +1,5 @@
-import { z } from 'zod';
+import { any, z } from 'zod';
+import { criarLicencaSchema } from './validarLicencaSchema';
 
 export const criarEmpresaSchema = z.object({
     razaoSocial: z.string().min(2).max(50),
