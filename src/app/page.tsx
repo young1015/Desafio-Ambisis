@@ -2,7 +2,8 @@ import prisma from "../../prisma/client";
 import Link from "next/link";
 
 async function retornarEmpresas() {
-  const empresas = await prisma.empresa.findMany();
+  //const empresas = await prisma.empresa.findMany();
+  const empresas = 0;
   if(!empresas) {
     
   } else {

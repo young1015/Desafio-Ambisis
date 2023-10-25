@@ -19,24 +19,20 @@ export default function Home() {
   });
   const [error, setError] = useState('');
 
-  function criarLicenca(data: any) {
-    console.log(data)
-  }
-
     return (
       <>
         <main>
         <h1 className="text-4xl text-center">Cadastrar Licença</h1>
           <div className=" bg-zinc-50 flex items-center justify-center">
             <form className="flex flex-col gap-4 w-full max-w-xs" onSubmit={handleSubmit(async (data) => {
-
               try {
                 await axios.post('/API/routes/licencasRoute', data);
-                router.push('/');         
+                router.push('/empresas/new');
               } catch (error) {
                 setError('Ocorreu um erro inesperado.')
-              }   
-              })}>
+              }
+              
+            })}>
 
               <div className="flex flex-col gap-1">
                <label className="text-black" htmlFor="numero">Número: </label>

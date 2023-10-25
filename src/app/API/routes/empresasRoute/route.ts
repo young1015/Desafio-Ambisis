@@ -3,6 +3,7 @@ import prisma from "../../../../../prisma/client";
 import { criarEmpresaSchema } from "../../../Schemas/validarEmpresaSchema";
 import { deleteEmpresa, getEmpresa, updateEmpresa } from "../../controllers/empresa/empresaController";
 import { criarLicencaSchema } from "@/app/Schemas/validarLicencaSchema";
+import LicencaModal from "@/app/components/LicencaModal";
 
 export async function POST(request: NextRequest) {
     const body =  await request.json();
@@ -96,3 +97,4 @@ export async function DELETE(request: NextResponse) {
         return NextResponse.json({message: "ERROR", err}, {status: 500})
     }
 }
+
