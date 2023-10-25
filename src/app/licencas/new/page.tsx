@@ -27,7 +27,7 @@ export default function Home() {
       <>
         <main>
         <h1 className="text-4xl text-center">Cadastrar Licença</h1>
-          <div className=" h-screen bg-zinc-50 flex items-center justify-center">
+          <div className=" bg-zinc-50 flex items-center justify-center">
             <form className="flex flex-col gap-4 w-full max-w-xs" onSubmit={handleSubmit(async (data) => {
 
               try {

@@ -27,8 +27,8 @@ export default function criarEmpresa() {
       <>
         <main>
         <h1 className="text-4xl text-center">Cadastrar Empresa</h1>
-          <div className=" h-screen bg-zinc-50 flex items-center justify-center">
-            <form className="flex flex-col gap-2 w-full max-w-xs" onSubmit={handleSubmit(async (data) => {
+          <div className="h-5/6 bg-zinc-50 flex items-center justify-center">
+            <form className="flex  flex-col gap-2 w-full max-w-xs" onSubmit={handleSubmit(async (data) => {
 
               try {
                 await axios.post('/API/routes/empresasRoute', data);
@@ -74,7 +74,14 @@ export default function criarEmpresa() {
                <ErrorMessage>{errors.bairro?.message}</ErrorMessage>
             </div>
 
-              <button className="text-black border-2 rounded-md mt-5" type="submit">Criar Empresa</button>
+            <div className="flex flex-col">
+              <h2>Licenças: </h2>  
+              <Link href={`/licencas/new`}>
+              <button className="flex flex-col">Adicionar Licença</button>  
+              </Link>      
+            </div>
+
+            <button className="text-black border-2 rounded-md mt-5" type="submit">Criar Empresa</button>
             </form> 
           </div>   
         </main>

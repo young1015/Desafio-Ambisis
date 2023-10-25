@@ -1,21 +1,9 @@
+import { NextResponse } from "next/server";
 import prisma from "../../../../prisma/client"
 
-async function pegarEmpresa(empresaId: number) {
-    const res = await fetch(
-        `http://localhost:3000/empresas/${empresaId}`,
-        {
-            next: { revalidate: 10 },
-        }
-        );
-        const id = await res.json();
-
-    const empresa = await prisma.empresa.findUnique({
-        where: {
-          id: id,
-        },
-      })
-
-      return empresa;
+async function pegarEmpresa(request: NextResponse) {
+    const id = request.url.split("/empresas/")[1];
+    console.log(id) 
 }
 
 
