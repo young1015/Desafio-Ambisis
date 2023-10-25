@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../../prisma/client";
 import { criarEmpresaSchema } from "../../../Schemas/validarEmpresaSchema";
 import { deleteEmpresa, getEmpresa, updateEmpresa } from "../../controllers/empresa/empresaController";
+import { criarLicencaSchema } from "@/app/Schemas/validarLicencaSchema";
 
 export async function POST(request: NextRequest) {
     const body =  await request.json();
@@ -10,8 +11,35 @@ export async function POST(request: NextRequest) {
         return NextResponse.json(validacao.error.format(), { status: 400})
 
     const novaEmpresa = await prisma.empresa.create({
-        data: { razaoSocial: body.razaoSocial, cnpj: body.cnpj, cep: body.cep, cidade: body.cidade, estado: body.estado, bairro: body.bairro, licencas: body.licencas }
-    })
+        data: { razaoSocial: body.razaoSocial, 
+            cnpj: body.cnpj, 
+            cep: body.cep, 
+            cidade: body.cidade, 
+            estado: body.estado, 
+            bairro: body.bairro }
+    });
+
+    const licencasCriadas = [];
+    for (const licencaData of body.licencas) {
+        const valicadao = criarLicencaSchema.safeParse(body);
+    if (!valicadao.success)
+    return NextResponse.json(valicadao.error.errors, {status: 400})
+
+    const novaLicenca = await prisma.licenca.create({
+        data: { numero: licencaData.numero, orgaoAmbiental: licencaData.orgaoAmbiental, emissao: licencaData.emissao, validade: licencaData.validade, empresaId: novaEmpresa.id },
+    });
+    licencasCriadas.push(novaLicenca);
+    }
+
+    await prisma.empresa.update({
+        where: {id: novaEmpresa.id},
+        data: {
+            licencas: {
+                connect: licencasCriadas.map((licenca) => ({ id: licenca.id })),
+            },
+        },
+    });
+    
 
     return NextResponse.json(novaEmpresa, { status: 201});
 }

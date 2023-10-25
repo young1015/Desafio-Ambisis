@@ -1,13 +1,13 @@
-import { PrismaClient } from "@prisma/client";
 import prisma from "../../prisma/client";
-import { number } from "zod";
-import { link } from "fs";
 import Link from "next/link";
 
 async function retornarEmpresas() {
   const empresas = await prisma.empresa.findMany();
-
-  return empresas;
+  if(!empresas) {
+    
+  } else {
+    return empresas;
+  }
 }
 
 
@@ -21,7 +21,7 @@ export default async function EmpresasExistentes() {
           <h1 className="text-4xl text-center">Empresas Existentes</h1>
           <div className="px-10 py-10 border-[#ffffff] text-black border-2 m-20 bg-[#a3a3a3] bg-opacity-50">
 
-          {empresas?.map((empresa) => {
+          {empresas?.map((empresa: { id: any; }) => {
             return <Empresa key={empresa.id} empresa={empresa}/>;
           })}
 

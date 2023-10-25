@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../../prisma/client";
 import { criarLicencaSchema } from "../../../Schemas/validarLicencaSchema";
 import { deleteLicenca, getLicenca, updateLicenca } from "../../controllers/licenca/licencaController";
+import { useState } from 'react'
 
 export async function POST(request: NextRequest) {
     const body = await request.json();
