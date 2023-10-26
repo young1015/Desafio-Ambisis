@@ -7,9 +7,7 @@ export async function POST(request: NextRequest) {
     const body =  await request.json();
     const validacao = criarEmpresaSchema.safeParse(body);
     if (!validacao.success)
-        return NextResponse.json(validacao.error.format(), { status: 400})
-
-    const idMapping = body.idMapping;    
+        return NextResponse.json(validacao.error.format(), { status: 400}) 
 
     const novaEmpresa = await prisma.empresa.create({
         data: { razaoSocial: body.razaoSocial, 
