@@ -10,7 +10,7 @@ export async function getEmpresa(id: number) {
     return empresa;
 }
 
-export async function updateEmpresa(id: number, razaoSocial: string, cnpj: string, cep: string, cidade: string, estado: string, bairro: string ) {
+export async function updateEmpresa(id: number, razaoSocial: string, cnpj: string, cep: string, cidade: string, estado: string, bairro: string, complemento: string ) {
     const empresa = await getEmpresa(id)
 
     if(empresa) {
@@ -20,6 +20,7 @@ export async function updateEmpresa(id: number, razaoSocial: string, cnpj: strin
         empresa.cidade = cidade;
         empresa.estado = estado;
         empresa.bairro = bairro;
+        empresa.complemento = complemento;
     } else {
         throw new Error("Empresa não encontrada")
     }

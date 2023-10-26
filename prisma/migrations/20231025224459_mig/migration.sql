@@ -7,6 +7,7 @@ CREATE TABLE `Empresa` (
     `cidade` VARCHAR(30) NOT NULL,
     `estado` VARCHAR(20) NOT NULL,
     `bairro` VARCHAR(20) NOT NULL,
+    `complemento` VARCHAR(20) NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 

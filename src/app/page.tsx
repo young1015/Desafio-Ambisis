@@ -1,16 +1,18 @@
+
+
+import { useEffect, useState } from "react";
 import prisma from "../../prisma/client";
 import Link from "next/link";
+import { deleteEmpresa } from "./API/controllers/empresa/empresaController";
 
 async function retornarEmpresas() {
-  //const empresas = await prisma.empresa.findMany();
-  const empresas = 0;
+  const empresas = await prisma.empresa.findMany();
   if(!empresas) {
     
   } else {
     return empresas;
   }
 }
-
 
 export default async function EmpresasExistentes() {
   const empresas = await retornarEmpresas();
@@ -37,10 +39,15 @@ function Empresa({ empresa }: any) {
   const { id, razaoSocial, cnpj, cep, cidade, estado, bairro } = empresa || {};
 
   return (
-    <Link href={`/empresas/${id}`}>
       <div>
-        <h2>Razão Social: {razaoSocial}</h2>       
+          <h2>Razão Social: {razaoSocial}</h2>
+          <h2>CNPJ: {cnpj}</h2>
+          <h2>CEP: {cep}</h2>  
+          <h2>Cidade: {cidade}</h2>
+          <h2>Estado: {estado}</h2>
+          <h2>Bairro: {bairro}</h2>
+          <br /> 
       </div>
-    </Link>
   )
 }
+

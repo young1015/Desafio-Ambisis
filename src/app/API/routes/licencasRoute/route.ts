@@ -10,11 +10,32 @@ export async function POST(request: NextRequest) {
     if (!valicadao.success)
     return NextResponse.json(valicadao.error.errors, {status: 400})
 
-    const novaLicenca = await prisma.licenca.create({
-        data: { numero: body.numero, orgaoAmbiental: body.orgaoAmbiental, emissao: body.emissao, validade: body.validade, empresa: body.empresa }
-    })
+    const idMapping = [];
+    const createdLicencas = [];
+    
+        const newLicenca = await prisma.licenca.create({
+            data: {
+                numero: body.numero,
+                orgaoAmbiental: body.orgaoAmbiental,
+                emissao: body.emissao,
+                validade: body.validade,
+                empresaId: body.empresaId
+            },
+        });
+        createdLicencas.push(newLicenca);
 
-    return NextResponse.json(novaLicenca, {status: 201});
+        idMapping[body.temporaryId] = newLicenca.id;
+    
+
+    const response = await fetch('API/routes/empresasRoute', {
+        method: 'POST',
+        body: JSON.stringify({ empresaData: body.empresaData, idMapping }),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    return NextResponse.json({ createdLicencas, idMapping }, { status: 201 });
 }
 
 export async function getLicencas(request: NextResponse) {
@@ -34,9 +55,11 @@ export async function getLicencas(request: NextResponse) {
 
 export async function getLicencaById(request: NextResponse) {
 
+    const body = await request.json();
+
     try{
-        const id = request.url.split("licenca/")[1];
-        const licenca = getLicenca(parseInt(id));
+        const id = body.id;
+        const licenca = getLicenca(id);
     if(!licenca) {
         return NextResponse.json({ message: "Error"},
         {status: 404})    
@@ -49,10 +72,12 @@ export async function getLicencaById(request: NextResponse) {
 
 export async function PUT(request: NextResponse) {
 
+    const body = await request.json();
+
     try {
         const { numero, orgaoAmbiental, emissao, validade } = await request.json();
-        const id = request.url.split("licenca/")[1];
-         updateLicenca(parseInt(id), numero, orgaoAmbiental, emissao, validade);
+        const id = body.id;
+         updateLicenca(id, numero, orgaoAmbiental, emissao, validade);
          return NextResponse.json({message: "OK"}, {status: 200})
 
     } catch (err) {
@@ -62,9 +87,11 @@ export async function PUT(request: NextResponse) {
 
 export async function DELETE(request: NextResponse) {
 
+    const body = await request.json();
+
     try {
-        const id = request.url.split("licenca/")[1];
-         deleteLicenca(parseInt(id))
+        const id = body.id;
+         deleteLicenca(id)
          return NextResponse.json({message: "OK"}, {status: 200})
 
     } catch (err) {

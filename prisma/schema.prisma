@@ -18,6 +18,7 @@ model Empresa {
   cidade      String    @db.VarChar(30)
   estado      String    @db.VarChar(20)
   bairro      String    @db.VarChar(20)
+  complemento String    @db.VarChar(20)
   licencas    Licenca[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
